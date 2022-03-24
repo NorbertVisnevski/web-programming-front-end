@@ -1,0 +1,16 @@
+.total-divider{
+    display: flex;
+    min-width: 5rem;
+    border: 2px solid black;
+    border-radius: 2px;
+}
+
+.total-text{
+    text-align: center;
+}
+
+.total-container{
+    display: flex;
+    justify-content:flex-end;
+    align-items:center;
+}

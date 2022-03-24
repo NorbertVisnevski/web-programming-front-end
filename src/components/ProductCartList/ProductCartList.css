@@ -1,0 +1,13 @@
+.action-btn {
+    border-radius: 50%;
+}
+
+.box {
+    display:inline-block;
+    white-space: nowrap;
+}
+
+.action-counter{
+    margin: 0px 10px 0px 10px;
+    display: inline;
+}
