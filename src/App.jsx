@@ -17,6 +17,13 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import ProductCart from './pages/ProductCart';
 import MakeOrder from './pages/MakeOrder';
+import Profile from './pages/Profile';
+import ProductDetails from './pages/ProductDetails';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import MyOrders from './pages/MyOrders';
+import OrderDetails from './components/UserOrders/OrderDetails';
+import ManageOrders from './pages/ManageOrders';
 
 library.add(fas)
 
@@ -26,24 +33,18 @@ function App() {
     <Provider url="https://localhost:7070/api">
       <BrowserRouter>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/edit/product">Edit</Link>
-            </li>
-            <li>
-              <Link to="products">Products</Link>
-            </li>
-          </ul>
-        </nav>
         <Routes>
           <Route path="/" element={<NavBar/>}>
             <Route path="edit/product/" element={<EditProduct />} />
             <Route path="edit/product/:productId" element={<EditProduct />} />
             <Route path="make/order" element={<MakeOrder />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="login" element={<Login />} />
+            <Route path="sign-up" element={<SignUp />} />
+            <Route path="product/:productId" element={<ProductDetails />} />
+            <Route path="my-orders" element={<MyOrders />} />
+            <Route path="manage-orders" element={<ManageOrders />} />
+            <Route path="order/:orderId" element={<OrderDetails />} />
             <Route path="cart" element={<ProductCart />} />
             <Route path="products" element={<ViewProducts />} />
             <Route path="*" element={<NotFound />} />

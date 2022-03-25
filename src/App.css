@@ -1,3 +1,21 @@
+a:link {
+  color: var(--bs-dark);
+  font-size: medium;
+  font-weight: 400;
+}
+
+a:visited {
+  color: var(--bs-dark);
+}
+
+a:hover {
+  color: var(--bs-primary);
+}
+
+a:active {
+  color: var(--bs-dark);
+}
+
 .App {
   text-align: center;
 }
@@ -11,6 +29,10 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.App-login-modal {
+  max-width: 30rem !important;
 }
 
 .App-header {

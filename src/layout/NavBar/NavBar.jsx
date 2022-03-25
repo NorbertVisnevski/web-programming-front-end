@@ -1,7 +1,7 @@
 import { Button, Container, Navbar } from "react-bootstrap";
 import {
     Outlet,
-    Link,
+    useNavigate,
 } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,11 +11,13 @@ import UserBadge from "./UserBadge";
 
 export default function NavBar() {
 
+    const navigate = useNavigate()
+
     return(
         <>
         <Navbar bg="dark" variant="dark" sticky="top">
             <Container>
-            <Navbar.Brand >
+            <Navbar.Brand role="button" onClick={()=>navigate("/products")}>
                 <img
                 alt=""
                 src="/logo192.png"
@@ -31,7 +33,9 @@ export default function NavBar() {
             </div>
             </Container>
         </Navbar>
-        <Outlet/>
+        <div className="mt-3">
+            <Outlet/>
+        </div>
         </>
     )
 }

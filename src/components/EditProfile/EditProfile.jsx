@@ -4,13 +4,11 @@ import useFetch from "use-http";
 import { errorMessage } from "../../helpers/errorObjectParser";
 import { clearCart, selectCart } from "../../redux/cart";
 import { useNavigate } from 'react-router-dom';
-import { selectUser } from "../../redux/user";
 
 
-export default function CreateOrder(){
+export default function EditProfile(){
 
     const cart = useSelector(selectCart)
-    const user = useSelector(selectUser)
 
     const {response, post,cache} = useFetch()
     const dispatch = useDispatch()
@@ -21,7 +19,6 @@ export default function CreateOrder(){
         event.preventDefault();
         const form = event.target;
         const body = {
-            buyerId:user.id,
             name: form.name.value.trim(),
             surname: form.surname.value.trim(),
             country: form.country.value.trim(),
@@ -30,12 +27,13 @@ export default function CreateOrder(){
             houseNumber: Number(form.house.value),
             phoneNumber: form.phone.value.trim(),
             zipCode: form.code.value.trim(),
-            subOrders: cart.map(entry=>{return{productId:entry.product.id,count:entry.count}}),
         }
+        return
+        console.log(body)
         const data = await post("order",body)
         if(response.ok)
         {
-            dispatch(clearCart())
+            dispatch(clearCart)
             navigate("/products")
         }
         console.log(data)
@@ -122,7 +120,7 @@ export default function CreateOrder(){
                 <Row>
                     <Col md="4">
                         <Button className="mb-2" type="submit">
-                            Order
+                            Save
                         </Button>
                     </Col>
                 </Row>
