@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cart'
 import toCurrency from '../../helpers/currencyFromater'
 import { useNavigate } from 'react-router-dom'
+import { emptyImageUrl, imageUrl } from '../../services/api'
 
 export default function ProductCard({product}) {
 
@@ -32,10 +33,10 @@ export default function ProductCard({product}) {
 
     return(
         <Card className='product-card'>
-        <Card.Img variant="top" src="https://thumbs.dreamstime.com/b/pizza-slice-1268733.jpg" role='button' onClick={handleProductDetails}/>
+        <Card.Img className="card-image" variant="top" src={product.images.length > 0 ? imageUrl+product.images[0] : emptyImageUrl} role='button' onClick={handleProductDetails}/>
         <Card.Body onClick={handleProductDetails} role='button'>
-            <Card.Title className="cart-title-box">{product.caption}</Card.Title>
-            <Card.Subtitle>
+            <Card.Title className="card-title-box">{product.caption}</Card.Title>
+            <Card.Subtitle className="card-title-box">
                 {drawCategories()}
             </Card.Subtitle>
             <Card.Text className="description-area">

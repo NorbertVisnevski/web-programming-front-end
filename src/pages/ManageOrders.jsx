@@ -9,7 +9,7 @@ import { selectUser } from "../redux/user";
 export default function ManageOrders(){
 
     const [orders, setOrders] = useState([])
-    const {response,get} = useFetch()
+    const {response,get,del} = useFetch()
     const user = useSelector(selectUser)
     useEffect(async()=>{
         const data = await get("/order/all")
@@ -18,7 +18,14 @@ export default function ManageOrders(){
         }
     },[])
 
+    const handleOnRemove = async (order) => {
+        const data = await del("/order/"+order.id)
+        if(response.ok){
+            setOrders(orders.filter(x => x.id !== order.id))
+        }
+    }
+
     return(
-        <ManageOrdersList orders={orders}/>
+        <ManageOrdersList orders={orders} onRemove={handleOnRemove}/>
     )
 }

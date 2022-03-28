@@ -1,3 +1,4 @@
+
 a:link {
   color: var(--bs-dark);
   font-size: medium;
@@ -14,6 +15,11 @@ a:hover {
 
 a:active {
   color: var(--bs-dark);
+}
+
+.invalid-feedback {
+  display:block !important;
+  min-height: 21px;
 }
 
 .App {

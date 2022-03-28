@@ -4,13 +4,18 @@ import { useDispatch } from "react-redux";
 import toCurrency from "../../helpers/currencyFromater";
 import { addToCart } from "../../redux/cart";
 import { useNavigate } from 'react-router-dom';
+import ImageCarousel from "./ImageCarousel";
+import hasRole from "../../helpers/hasRole";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/user";
 
 
 export default function Product({product}){
-
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
+
+    const user = useSelector(selectUser)
 
 
     const handleAddToCart = () => {
@@ -27,7 +32,7 @@ export default function Product({product}){
             <div className="card mt-3 overflow-hidden">
             <Row>
             <Col md="6">
-            <img src="https://thumbs.dreamstime.com/b/pizza-slice-1268733.jpg" style={{height: "100%", width: "100%", objectFit: "contain"}}/>
+                <ImageCarousel images={product.images} />
             </Col>
             <Col md="6" className="card-body">
             <h3>{product.caption}</h3> 
@@ -41,7 +46,8 @@ export default function Product({product}){
                 <Button disabled={product.stock <= 0} onClick={handleAddToCart}>Add to cart  <FontAwesomeIcon icon="cart-shopping"/></Button>
                 </div>
             </div>
-            <Button onClick={handleEdit}>Edit <FontAwesomeIcon icon="wrench"/></Button>
+            {hasRole(user) && 
+            <Button onClick={handleEdit}>Edit <FontAwesomeIcon icon="wrench"/></Button>}
             </Col>
             </Row>
             </div>

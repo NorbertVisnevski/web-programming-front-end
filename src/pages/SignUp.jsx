@@ -4,12 +4,13 @@ import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import { batch, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import useFetch from "use-http";
+import { errorMessage } from "../helpers/errorObjectParser";
 import { setToken, setUser } from "../redux/user";
 
 export default function SignUp()
 {
     const [passwordVisible, setPasswordVisible] = useState("password")
-    const [error, setError] = useState();
+    const [errors, setErrors] = useState();
     const navigate = useNavigate()
     const { response, post} = useFetch();
     const dispatch = useDispatch()
@@ -17,26 +18,21 @@ export default function SignUp()
     {
         event.preventDefault()
         const form = event.target;
-        if(form.password?.value !== form.password2?.value){
-            setError("Passwords don't match")
-            return
-        }
         const body = {
             email: form.email.value,
             password: form.password.value,
+            passwordRepeat: form.passwordRepeat.value
         }
         const data = await post("user/register", body)
-        if(response.ok)
-        {
+        if(response.ok){
             batch(()=>{
                 dispatch(setUser(data.user))
                 dispatch(setToken(data.token))
             })
             navigate("/products")
         }
-        else
-        {
-            
+        else{
+            setErrors(data?.errors)
         }
     }
 
@@ -56,11 +52,11 @@ export default function SignUp()
     return(
 
         <Container className="App-login-modal">
-            <Form onSubmit={handleSubmit} autoComplete="false">
+            <Form onSubmit={handleSubmit} noValidate>
                 <div className="d-flex justify-content-center">
                 <div className="card p-3 mt-4">
                     <div className="d-flex justify-content-between">
-                        <h2 style={{display:"inline"}}>Sign Up</h2>
+                        <h2 className="d-inline">Sign Up</h2>
                         <Button onClick={handleLogin} variant="outline-primary">Login</Button>
                     </div>
                     <hr/>
@@ -68,10 +64,12 @@ export default function SignUp()
                 <Form.Group as={Col} md="12" className="mb-2" controlId="email">
                     <Form.Label>Your email</Form.Label>
                     <Form.Control
+                        isInvalid={errors?.Email}
                         name="email"
                         type="email"
                         defaultValue=""
                     />
+                    <Form.Control.Feedback type="invalid">{errorMessage(errors?.Email)}</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group as={Col} md="12" className="mb-2"  controlId="password">
@@ -79,62 +77,35 @@ export default function SignUp()
                     <InputGroup>
                     <Button variant="outline-secondary" onClick={handleTogglePasswordVisible}>{passwordVisible !== "text" ? <FontAwesomeIcon icon="eye-slash"/> : <FontAwesomeIcon icon="eye"/>}</Button>
                     <Form.Control
+                        isInvalid={errors?.Password || errors?.PasswordRepeat}
                         name="password"
                         defaultValue=""
                         type={passwordVisible}
                     />
+                    <Form.Control.Feedback type="invalid">{errorMessage(errors?.Password)}</Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>
 
-                <Form.Group as={Col} md="12" className="mb-2" controlId="password2">
+                <Form.Group as={Col} md="12" className="mb-2" controlId="passwordRepeat">
                     <Form.Label>Repeat password</Form.Label>
                     <InputGroup>
                     <Button variant="outline-secondary" onClick={handleTogglePasswordVisible}>{passwordVisible !== "text" ? <FontAwesomeIcon icon="eye-slash"/> : <FontAwesomeIcon icon="eye"/>}</Button>
                     <Form.Control
-                        name="password2"
+                        isInvalid={errors?.Password || errors?.PasswordRepeat}
+                        name="passwordRepeat"
                         defaultValue=""
                         type={passwordVisible}
                     />
+                    <Form.Control.Feedback type="invalid">{errorMessage(errors?.PasswordRepeat)}</Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>
                 <Col md="12">
                     <Button className="mt-2 btn-block" type="submit">Sign Up</Button>
-                </Col>
-                <Col md="12">
-                    <div style={{color:"var(--bs-danger)", textAlign:"center", marginTop:"1rem"}}>{error}</div>
                 </Col>
                 </Row>
                 </div>
                 </div>
             </Form>
         </Container>
-    //     <div class="row">
-	//     <div class="col-sm-4">
-    //     <div class="card">
-    //     <article class="card-body">
-    //     <a href="" class="float-right btn btn-outline-primary">Sign up</a>
-    //     <h4 class="card-title mb-4 mt-1">Sign in</h4>
-	//     <form>
-    //     <div class="form-group">
-    //         <label>Your email</label>
-    //         <input name="" class="form-control" placeholder="Email" type="email"/>
-    //     </div> 
-    //     <div class="form-group">
-    //         <label>Your password</label>
-    //         <input class="form-control" placeholder="******" type="password"/>
-    //     </div> 
-    //     <div class="form-group"> 
-    //     <div class="checkbox">
-    //     <label> <input type="checkbox"/> Save password </label>
-    //     </div> 
-    //     </div>  
-    //     <div class="form-group">
-    //     <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-    //     </div>                                                          
-    //     </form>
-    //     </article>
-    //     </div> 
-    // </div>
-    // </div>
     )
 }

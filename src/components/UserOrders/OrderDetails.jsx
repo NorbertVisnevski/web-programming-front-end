@@ -41,7 +41,7 @@ export default function OrderDetails(){
                             <h5>Products:</h5>
                             <hr className="mt-1"/>
                             {order.subOrders.map(sub=>
-                            <div>
+                            <div key={sub.id}>
                                 <Link to={"/product/"+sub.product.id}>{sub.product.caption}</Link> x{sub.count}
                                 <hr className="mt-1"/>
                             </div>)}

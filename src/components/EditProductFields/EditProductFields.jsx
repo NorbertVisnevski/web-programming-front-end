@@ -3,6 +3,10 @@ import { Form, Row, Col, InputGroup, Button, Container, Stack } from "react-boot
 import { useFetch } from "use-http";
 import { errorMessage } from "../../helpers/errorObjectParser";
 import Select from 'react-select';
+import ImageUpload from "../ImageUpload/ImageUpload";
+import { useDispatch } from "react-redux";
+import { setMessage } from "../../redux/info";
+import { clearCart } from "../../redux/cart";
 
 export default function EditProductFields({product, setProduct}){
     const [errors, setErrors] = useState()
@@ -11,6 +15,7 @@ export default function EditProductFields({product, setProduct}){
     const [newCategory, setNewCategory] = useState("")
     const {post, del, get, put, response} = useFetch();
     const [, updateState] = useState();
+    const dispatch = useDispatch()
     const forceUpdate = useCallback(() => updateState({}), []);
 
     useEffect(async()=>{
@@ -57,16 +62,16 @@ export default function EditProductFields({product, setProduct}){
         }
         else{
             data = await post("product", body)
+            dispatch(clearCart())
         }
         if(response.ok)
         {
             setErrors()
-            console.log(data)
+            dispatch(setMessage("Product updated"))
             setProduct(data)
         }
         else
         {
-            console.log(data?.errors)
             setErrors(data?.errors)
         }
     }
@@ -75,7 +80,9 @@ export default function EditProductFields({product, setProduct}){
         await del("product/"+product.id)
         if(response.ok)
         {
+            dispatch(clearCart())
             setProduct(undefined)
+            dispatch(setMessage("Product deleted"))
             setSelectedCategories([])
             forceUpdate()
         }
@@ -164,6 +171,7 @@ export default function EditProductFields({product, setProduct}){
                 {product && <Button variant="danger" onClick={handleDelete}>Delete product</Button>}
             </div>
             </Form>
+            {product && <ImageUpload product={product}/>}
         </Container>
     )
 }
