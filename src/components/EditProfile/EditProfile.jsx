@@ -125,6 +125,7 @@ export default function EditProfile(){
                         isInvalid={errors?.HouseNumber}
                         name="house"
                         type="number"
+                        min={0}
                     />
                     <Form.Control.Feedback type="invalid">{errorMessage(errors?.HouseNumber)}</Form.Control.Feedback>
                 </Form.Group>

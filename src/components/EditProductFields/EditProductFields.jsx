@@ -110,6 +110,7 @@ export default function EditProductFields({product, setProduct}){
                     isInvalid={errors?.Price}
                     name="price"
                     type="number"
+                    min={0}
                 />
                 <Form.Control.Feedback type="invalid">{errorMessage(errors?.Price)}</Form.Control.Feedback>
                 </Form.Group>
@@ -121,6 +122,7 @@ export default function EditProductFields({product, setProduct}){
                     isInvalid={errors?.Stock}
                     name="stock"
                     type="number"
+                    min={0}
                 />
                 <Form.Control.Feedback type="invalid">{errorMessage(errors?.Stock)}</Form.Control.Feedback>
                 </Form.Group>
@@ -143,6 +145,7 @@ export default function EditProductFields({product, setProduct}){
             <Form.Group as={Col} md="4">
                 <Form.Label>Categories</Form.Label>
                 <Select 
+                    closeMenuOnSelect={false}
                     isMulti
                     placeholder=""
                     name="categories"
@@ -156,7 +159,6 @@ export default function EditProductFields({product, setProduct}){
             <Form.Group as={Col} md="4">
                 <Form.Label>New Category</Form.Label>
                 <Form.Control value={newCategory} onChange={(e)=>setNewCategory(e.target.value)}/>
-                <Form.Control.Feedback type="invalid">{errorMessage(errors?.Categories)}</Form.Control.Feedback>
             </Form.Group>
 
             <Col md="4">

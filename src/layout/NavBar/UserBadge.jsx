@@ -29,6 +29,9 @@ export default function UserBadge() {
                 <NavDropdown.Item onClick={()=>handleRedirect("/profile")}>Profile</NavDropdown.Item>
                 <NavDropdown.Item onClick={()=>handleRedirect("/my-orders/"+user.id)}>My orders</NavDropdown.Item>
                 <NavDropdown.Divider />
+                <NavDropdown.Header>Extras</NavDropdown.Header>
+                <NavDropdown.Item onClick={()=>handleRedirect("/coins")}>Crypto</NavDropdown.Item>
+                <NavDropdown.Divider />
                 {hasRole(user) && <>
                     <NavDropdown.Header>Admin functions</NavDropdown.Header>
                     <NavDropdown.Item onClick={()=>handleRedirect("/manage-orders")}>Manage orders</NavDropdown.Item>

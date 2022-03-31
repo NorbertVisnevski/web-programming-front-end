@@ -31,6 +31,7 @@ import { selectToken, selectUser } from './redux/user';
 import hasRole from './helpers/hasRole';
 import EditCategories from './pages/EditCategories';
 import ManageUsers from './pages/ManageUsers';
+import CoinPage from './pages/CoinPage';
 
 library.add(fas)
 
@@ -50,7 +51,7 @@ function App() {
   return (
     <Provider options={fetchOption} url={baseUrl}>
       <BrowserRouter>
-      <div>
+      <div className='bg-light'>
         <Routes>
           <Route path="/" element={<NavBar/>}>
             <Route index element={<ViewProducts />} />
@@ -68,6 +69,7 @@ function App() {
               <Route path="edit/product/:productId" element={<EditProduct />} />
               <Route path="manage-orders" element={<ManageOrders />} />
             </Route>
+            <Route path="coins" element={<CoinPage />} />
             <Route path="login" element={<Login />} />
             <Route path="sign-up" element={<SignUp />} />
             <Route path="product/:productId" element={<ProductDetails />} />

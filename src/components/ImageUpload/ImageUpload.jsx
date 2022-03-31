@@ -18,10 +18,6 @@ export default function ImageUpload({product}){
         }
         const formData = new FormData();
         for(let i = 0; i < files.length; ++i){
-            if(files[i].size > 2000000){
-                setError("Files exced the maximum size of 2MB")
-                return
-            }
             formData.append('files', files[i]);
         }
         const data = await post("/image?productId="+product.id,formData)
