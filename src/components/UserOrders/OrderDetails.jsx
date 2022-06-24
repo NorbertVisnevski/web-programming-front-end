@@ -21,6 +21,7 @@ export default function OrderDetails(){
             setOrder(data)
         }
     },[])
+    const dt = new Date(order?.orderTime)
 
     return(
         <>
@@ -34,7 +35,13 @@ export default function OrderDetails(){
                     <Row>
                         <Col md="6" className='mb-2'>
                             <h4>{`Total: ${toCurrency(order.total)}`}</h4>
-                            <h4>{`Ordered on: ${new Date(order.orderTime).toString()}`}</h4>
+                            <h4>{`Ordered on: ${
+                                dt.getDate().toString().padStart(2, '0')}-${
+                                (dt.getMonth()+1).toString().padStart(2, '0')}-${
+                                dt.getFullYear().toString().padStart(4, '0')} ${
+                                dt.getHours().toString().padStart(2, '0')}:${
+                                dt.getMinutes().toString().padStart(2, '0')}:${
+                                dt.getSeconds().toString().padStart(2, '0')}`}</h4>
                             <h5>{`Ship to: ${order.name} ${order.surname} ${order.phoneNumber}, ${order.country} ${order.city} ${order.street} ${order.houseNumber}, ${order.zipCode}`}</h5>
                         </Col>
                         <Col md="6">
