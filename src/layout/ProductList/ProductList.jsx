@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import useFetch from "use-http";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
 

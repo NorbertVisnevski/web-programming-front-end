@@ -2,7 +2,6 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import useFetch from "use-http";
 import { errorMessage } from "../../helpers/errorObjectParser";
-import { clearCart, selectCart } from "../../redux/cart";
 import { useNavigate } from 'react-router-dom';
 import { selectUser, setUser } from "../../redux/user";
 import { useState } from "react";
@@ -32,7 +31,7 @@ export default function EditProfile(){
             street: form.street.value.trim(),
             houseNumber: form.house.value ? Number(form.house.value) : null,
             phoneNumber: form.phone.value.trim(),
-            zipCode: form.code.value.trim(),
+            zipCode: form.zipCode.value.trim(),
         }
         const data = await put("user",body)
         if(response.ok){
@@ -135,7 +134,7 @@ export default function EditProfile(){
                     <Form.Control
                         defaultValue={user?.zipCode}
                         isInvalid={errors?.ZipCode}
-                        name="code"
+                        name="zipCode"
                         type="text"
                     />
                     <Form.Control.Feedback type="invalid">{errorMessage(errors?.ZipCode)}</Form.Control.Feedback>

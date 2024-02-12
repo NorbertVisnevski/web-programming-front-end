@@ -31,7 +31,6 @@ export const cartSlice = createSlice({
         {
           state.cart = state.cart.filter(element=>element !== index) 
         }
-        return;
       }
     },
     setTotal: (state, action) => {
